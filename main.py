@@ -1,4 +1,4 @@
-rom telegram.ext import Updater, InlineQueryHandler, CommandHandler
+from telegram.ext import Updater, InlineQueryHandler, CommandHandler
 import requests
 import re
 
