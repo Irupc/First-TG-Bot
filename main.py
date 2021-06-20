@@ -1,12 +1,8 @@
 import Constants as keys
-from telegram import Update
 from telegram.ext import Updater
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler
 from telegram.ext import Filters
-from telegram.ext import messagequeue as mq
-import telegram
-from telegram.utils.request import Request
 import Responses as R
 
 print("Bot Started")
