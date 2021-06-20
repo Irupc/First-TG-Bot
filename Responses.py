@@ -6,7 +6,7 @@ def sample_responses(input_text):
     if user_message in ("hello", "hi", "sup",):
         return "Hey! How's it going?"
 
-    if user_message in ("iruPC"):
+    if user_message in ("irupc", "user", "hept",):
         return "Join @iruPC for more Updates"   
 
     if user_message in ("time"):
