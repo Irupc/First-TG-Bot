@@ -15,7 +15,7 @@ def help_command(update, context):
 
 def handle_message(update, context):
   text = str(update.message.text).lower()
-  response = R.simple_responses(text)
+  response = R.sample_responses(text)
 
   update.message.reply_text(response)
 
