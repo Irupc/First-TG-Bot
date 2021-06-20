@@ -1,31 +1,35 @@
-from telegram.ext import Updater, InlineQueryHandler, CommandHandler
-import requests
-import re
+import Constants as keys
+from telegram.ext import *
+import Responses as R
 
-def get_url():
-    contents = requests.get('https://random.dog/woof.json').json()    
-    url = contents['url']
-    return url
+print("Bot Started")
 
-def get_image_url():
-    allowed_extension = ['jpg','jpeg','png']
-    file_extension = ''
-    while file_extension not in allowed_extension:
-        url = get_url()
-        file_extension = re.search("([^.]*)$",url).group(1).lower()
-    return url
+def start_command(update, context):
+  update.message.reply_text('Type Something')
 
-def bop(bot, update):
-    url = get_image_url()
-    chat_id = update.message.chat_id
-    bot.send_photo(chat_id=chat_id, photo=url)
+def help_command(update, context):
+  update.message.reply_text('Just Search on Google')
+
+def handle_message(update, context):
+  text = str(update.message.text).lower()
+  response = R.simple_responses(text)
+
+  update.message.reply_text(response)
+
+def error(update, context):
+  print(f"Update {update} caused error {context.error}")
 
 def main():
-    updater = Updater('YOUR_TOKEN')
-    dp = updater.dispatcher
-    dp.add_handler(CommandHandler('bop',bop))
-    updater.start_polling()
-    updater.idle()
+  updater = Updater(keys.API_KEY, use_context=True)
+  dp = updater.dispatcher
 
-if __name__ == '__main__':
-    main()
+  dp.add_handler(CommandHandler("start", start_command))
+  dp.add_handler(CommandHandler("help", help_command))
+  dp.add_handler(MessageHandler(Filters.text, handle_message))
+
+  dp.add_error_handler(error)
+
+  updater.start_polling()
+  updater.idle()
+
+main()
